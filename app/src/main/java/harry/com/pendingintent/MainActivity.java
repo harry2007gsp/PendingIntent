@@ -63,6 +63,7 @@ public class MainActivity extends ActionBarActivity {
         remoteViews.setTextViewText(R.id.button1,"customized button");
 //        notificationBuilder.setProgress(10, 5, true);
 
+        //this will take effect and remove the notification only if notification or any of its addAction() has clickable pending intent
         notificationBuilder.setAutoCancel(true); // this will auto remove the notification when clicking action with pending intent is done
 
         Notification notification = notificationBuilder.build();
