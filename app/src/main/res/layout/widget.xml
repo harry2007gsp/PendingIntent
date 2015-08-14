@@ -10,11 +10,11 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#ff0000"
-        android:text="DJ notification"
+        android:text="Third"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Close Me" />
+        android:text="Fourth" />
 </LinearLayout>

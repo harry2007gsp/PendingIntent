@@ -24,6 +24,10 @@
             android:name=".Thrid"
             android:label="@string/title_activity_thrid" >
         </activity>
+        <activity
+            android:name=".Fourth"
+            android:label="@string/title_activity_fourth" >
+        </activity>
     </application>
 
 </manifest>

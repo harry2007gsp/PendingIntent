@@ -14,7 +14,8 @@ public class Thrid extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thrid);
-        // deleting notification when addaction is clicked
+
+        // deleting notification when addaction is clicked to take us to Third Activity
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(0);
     }

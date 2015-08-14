@@ -24,43 +24,50 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void pending(View view) {
-        Intent intent = new Intent(this,Second.class);
+    public void buttonForPendingIntent(View view) {
+        Intent intent2 = new Intent(this,Second.class);
         Intent intent3 = new Intent(this, Thrid.class);
+        Intent intent4 = new Intent(this, Fourth.class);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, intent2, 0);
         PendingIntent pendingIntent3 = PendingIntent.getActivity(this, 0, intent3, 0);
+        PendingIntent pendingIntent4 = PendingIntent.getActivity(this, 0, intent4, 0);
 
-        Notification.Builder notification = new Notification.Builder(MainActivity.this);
-//        notification.setContentTitle("hello");
-//        Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
-//                R.drawable.ic_launcher);
-//        notification.setLargeIcon(icon);
-//        notification.setContentText("here is the details");
-        notification.setSmallIcon(android.R.drawable.btn_star_big_off);
-        notification.setContentIntent(pendingIntent);
+        Notification.Builder notificationBuilder = new Notification.Builder(this);
 
-//        Button button1 = (Button) findViewById(R.id.button1);
+        notificationBuilder.setSmallIcon(android.R.drawable.btn_star_big_off); //small icon takes int which is from drawable
+                                                                              // THIS IS MUST TO BE DEFINED WITHOUT WHICH NOTIFICATION WILL NOT COME
+        notificationBuilder.setContentTitle("Hello");
+        notificationBuilder.setContentText("here is the details");
+        Bitmap icon = BitmapFactory.decodeResource(this.getResources(), //to convert from int in drawable to Bitmap
+                R.drawable.ic_launcher);
+        notificationBuilder.setLargeIcon(icon); //large icon takes Bitmap which we have to make or take
 
+        //this is for addtional clickables to take us to different things
+        //VERY IMPORTANT, THIS WILL TAKE OVER CUSTOMIZED LAYOUT IF DEFINED. SO TO SHOW CUSTOM LAYOUT, DONT USE addAction()
+        notificationBuilder.addAction(0, "Reply", pendingIntent3);//setAutoCancel(true) will work for these too as they are in bydefault notification
+        notificationBuilder.addAction(0, "Delete", pendingIntent4);
+
+        //BEFORE THIS NOTIFICATION IS NOT HAVING CLICK AND TAKING TO SOMEWHERE ACTION
+        notificationBuilder.setContentIntent(pendingIntent2); // to take us to the destination on the click
+        //upto here everything is bydefault UI without any customized layout
+
+        //This is for customized layout of notification
         RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.widget);
         remoteViews.setOnClickPendingIntent(R.id.textView1,pendingIntent3);
-        notification.setContent(remoteViews);
+        remoteViews.setOnClickPendingIntent(R.id.button1,pendingIntent4);
+
+        notificationBuilder.setContent(remoteViews); //this will set and replace the bydefault layout of the notification
 
 //        remoteViews.setTextViewText(R.id.textView1,"customized text");
-//        remoteViews.setTextViewText(R.id.button1,"customized button");
+        remoteViews.setTextViewText(R.id.button1,"customized button");
+//        notificationBuilder.setProgress(10, 5, true);
 
-//        notification.setProgress(10, 5, true);
+        notificationBuilder.setAutoCancel(true); // this will auto remove the notification when clicking action with pending intent is done
 
-//        notification.addAction(0, "Reply", pendingIntent3);
-//        notification.addAction(0, "Delete", pendingIntent);
-
-        notification.setAutoCancel(true);
-
-        Notification notification1 = notification.build();
-
+        Notification notification = notificationBuilder.build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0, notification1);
-//        notificationManager.cancel(0);
+        notificationManager.notify(0, notification);
 
     }
 
